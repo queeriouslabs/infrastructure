@@ -1,0 +1,11 @@
+---
+- hosts: tachikoma
+  become: yes
+  roles:
+    - role: caddy-ansible
+      caddy_pgp_verify_signatures: yes
+      caddy_config: |
+        queeriouslabs.com {
+          root /var/www/queeriouslabs
+        }
+      
