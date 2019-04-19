@@ -1,0 +1,88 @@
+---
+  # Install and configure web server (nginx) 
+- hosts: tachikoma
+  become: yes
+  tasks:
+    - name: Download Caddy
+      get_url: 
+        url: https://caddyserver.com/download/linux/amd64?plugins=http.expires,http.realip&license=personal&telemetry=off
+        dest: /root/caddy.tar.gz
+    - name: Create /opt/caddy
+      file:
+        path: /opt/caddy
+        state: directory
+    - name: Extract Caddy
+      unarchive:
+        src: /root/caddy.tar.gz
+        dest: /opt/caddy
+        remote_src: yes
+    - name: Copy Caddy Binary
+      copy:
+        src: /opt/caddy/caddy
+        dest: /usr/local/bin/caddy
+        remote_src: yes
+    - name: Set Cady Permissions
+      file:
+        path: /usr/local/bin/caddy
+        owner: root
+        group: root
+        mode: 0755
+        state: file
+    - name: Allow caddy to bind to privileged ports
+      command: setcap 'cap_net_bind_service=+ep' /usr/local/bin/caddy
+    - name: Create www-data User
+      user:
+        name: www-data
+        home: /var/www
+        create_home: false
+        shell: /usr/sbin/nologin
+    - name: Create /etc/caddy
+      file:
+        path: /etc/caddy
+        owner: root
+        group: root
+        state: directory
+    - name: Create /etc/ssl/caddy
+      file:
+        path: /etc/ssl/caddy
+        owner: root
+        group: www-data
+        mode: 0770
+        state: directory
+    - name: Copy Caddy Configuration
+      copy:
+        src: Caddyfile
+        dest: /etc/caddy/Caddyfile
+    - name: Set Caddyfile perms
+      file:
+        path: /etc/caddy/Caddyfile
+        owner: root
+        group: root
+        mode: 0644
+    - name: Create /var/www
+      file:
+        path: /var/www
+        owner: www-data
+        group: www-data
+        mode: 0555
+        state: directory
+    - name: Copy Caddy Systemd Service
+      copy:
+        src: /opt/caddy/init/linux-systemd/caddy.service
+        dest: /etc/systemd/system/caddy.service
+        remote_src: yes
+    - name: Set Caddy Systemd Service Permissions
+      file:
+        path: /etc/systemd/system/caddy.service
+        owner: root
+        group: root
+        mode: 0644
+    - name: Setup Caddy Service
+      systemd:
+        daemon_reload: yes
+        name: caddy
+        enabled: yes
+        state: started
+      
+    
+
