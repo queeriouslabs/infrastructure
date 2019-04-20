@@ -11,6 +11,11 @@
         owner: www-data
         group: www-data
         state: directory
+    - name: Install git
+      become_user: root
+      apt:
+        name: git
+        state: present
     - name: Clone site repo
       git:
         repo: 'https://github.com/queeriouslabs/webhooks'
