@@ -13,3 +13,10 @@ E.g: To test your connection to infrastructure by pinging all hosts, run:
 cd ansible
 ansible -i hosts all -m ping
 ```
+
+Or to run all playbooks (i.e. configure all infrastructure):
+
+```bash
+cd ansible
+ansible-playbook -i hosts playbooks/all.yml
+```
