@@ -10,5 +10,7 @@
         http://queeriouslabs.com http://35.212.195.155 {
           root /var/www/queeriouslabs.com/deployed
           tls off
+
+          proxy /webhooks localhost:3000
         }
       

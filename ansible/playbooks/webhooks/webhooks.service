@@ -1,0 +1,13 @@
+[Unit]
+Description=Webhooks Service
+After=network.target
+
+[Service]
+Type=simple
+User=www-data
+WorkingDirectory=/opt/webhooks
+ExecStart=/usr/bin/node /opt/webhooks/build
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
