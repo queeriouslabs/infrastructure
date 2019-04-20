@@ -3,9 +3,12 @@
   become: yes
   roles:
     - role: caddy-ansible
+      caddy_setcap: yes
       caddy_pgp_verify_signatures: yes
+      # tls needs to be re-enabled once DNS has been updated
       caddy_config: |
-        queeriouslabs.com {
-          root /var/www/queeriouslabs
+        http://queeriouslabs.com http://35.212.195.155 {
+          root /var/www/queeriouslabs.com/deployed
+          tls off
         }
       

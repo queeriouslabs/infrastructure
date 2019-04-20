@@ -1,0 +1,32 @@
+---
+  # Setup the static website
+- hosts: tachikoma
+  become: yes
+  become_user: www-data
+  tasks:
+    - name: Install Hugo
+      become_user: root
+      apt:
+        name: hugo
+        state: present
+    - name: Create working directory
+      become_user: root
+      file:
+        path: /var/www/queeriouslabs.com
+        owner: www-data
+        group: www-data
+        state: directory
+    - name: Clone site repo
+      git:
+        repo: 'https://github.com/queeriouslabs/www.queeriouslabs.com.git'
+        dest: /var/www/queeriouslabs.com
+    - name: Run Build
+      shell:
+        ./build.sh
+      args:
+        chdir: /var/www/queeriouslabs.com
+    - name: Add Cron
+      cron:
+        name: 'update site'
+        minute: '0,30'
+        job: '/var/www/queeriouslabs.com/deploy.sh'

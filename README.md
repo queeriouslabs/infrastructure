@@ -10,5 +10,6 @@ Ansible needs to be told which inventory file to use using `-i` (by default is u
 E.g: To test your connection to infrastructure by pinging all hosts, run:
 
 ```bash
-ansible -i ansible/hosts all -m ping
+cd ansible
+ansible -i hosts all -m ping
 ```
