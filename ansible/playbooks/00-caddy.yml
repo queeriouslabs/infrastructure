@@ -7,10 +7,21 @@
       caddy_pgp_verify_signatures: yes
       # tls needs to be re-enabled once DNS has been updated
       caddy_config: |
-        http://queeriouslabs.com http://35.212.195.155 {
+        queeriouslabs.com {
           root /var/www/queeriouslabs.com/deployed
-          tls off
+          tls sysadmins@queeriouslabs.com
 
           proxy /webhooks localhost:3000
         }
+
+        http://35.212.195.155,
+        queeriouslabs.net,
+        www.queeriouslabs.net,
+        queeriouslabs.org,
+        www.queeriouslabs.org,
+        www.queeriouslabs.com {
+          redir https://queeriouslabs.com{uri}
+        }
+
+
       
