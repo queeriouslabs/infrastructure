@@ -1,4 +1,4 @@
 ---
-- import_playbook: 00-caddy.yml
-- import_playbook: 10-site.yml
-- import_playbook: 10-webhooks.yml
+- import_playbook: 10-caddy.yml
+- import_playbook: 20-site.yml
+- import_playbook: 20-webhooks.yml
