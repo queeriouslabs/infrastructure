@@ -12,6 +12,8 @@
           tls sysadmins@queeriouslabs.com
 
           proxy /webhooks localhost:3000
+        }
+        wiki.queeriouslabs.com {
           proxy /wiki localhost:3010
         }
 
