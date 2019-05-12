@@ -14,7 +14,7 @@
           proxy /webhooks localhost:3000
         }
         wiki.queeriouslabs.com {
-          proxy /wiki localhost:3010
+          proxy / localhost:3010
         }
 
         http://35.212.195.155,
