@@ -1,0 +1,55 @@
+---
+  # Setup the static website
+- hosts: tachikoma
+  become: yes
+  tasks:
+    - name: Install Nodejs
+      apt:
+        name: nodejs
+        state: present
+    - name: Install Mongodb
+      apt:
+        name: mongodb
+        state: present
+    - name: Add wiki user
+      user:
+        name: wiki
+    - name: Create wiki application directory
+      file:
+        path: /opt/wiki
+        owner: wiki
+        group: wiki
+        state: directory
+    - name: Create wiki storage directory
+      file:
+        path: /var/wiki
+        owner: wiki
+        group: wiki
+        state: directory
+        mode: 0700
+    - name: Create wiki ssh-key directory
+      file:
+        path: /etc/wiki/keys
+        owner: wiki
+        group: wiki
+        state: directory
+        mode: 0700
+    - name: Copy wiki ssh-key directory
+      copy:
+        src: wiki/keys/
+        dest: /etc/wiki/keys/
+        owner: wiki
+        group: wiki
+        mode: 0700
+    # - name: Copy install script
+    #   copy:
+    #     src: wiki/install.sh
+    #     dest: /opt/wiki/install.sh
+    #     owner: wiki
+    #     group: wiki
+    #     mode: 0744
+    # - name: Install Wiki.js
+    #   become_user: wiki
+    #   shell: ./install.sh
+    #   args:
+    #     chdir: /opt/wiki/
