@@ -4,5 +4,11 @@
   tasks:
     - name: Install utilities
       apt:
-        name: "emacs-nox psmisc nano"
+        name: "{{ packages }}"
         state: present
+      vars:
+        packages:
+          - emacs-nox
+          - psmisc
+          - nano
+          - strace
