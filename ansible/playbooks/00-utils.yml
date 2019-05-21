@@ -1,9 +1,8 @@
 ---
-  # Setup the static website
 - hosts: tachikoma
   become: yes
   tasks:
-    - name: Install Emacs
+    - name: Install utilities
       apt:
-        name: emacs-nox
+        name: "emacs-nox psmisc nano"
         state: present
