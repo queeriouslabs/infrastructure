@@ -4,6 +4,7 @@
   roles:
     - role: caddy-ansible
       caddy_setcap: yes
+      caddy_systemd_capabilities_enabled: True
       caddy_pgp_verify_signatures: yes
       # tls needs to be re-enabled once DNS has been updated
       caddy_config: |
@@ -25,6 +26,3 @@
         www.queeriouslabs.com {
           redir https://queeriouslabs.com{uri}
         }
-
-
-      
