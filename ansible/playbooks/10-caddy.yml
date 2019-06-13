@@ -17,11 +17,11 @@
         wiki.queeriouslabs.com {
           proxy / localhost:3010
         }
-        discourse.queeriouslabs.com {
-          proxy / unix:/var/discourse/shared/standalone/nginx.http.sock {
-            header_upstream X-Forwarded-Proto {scheme}
-          }
-        }
+        #discourse.queeriouslabs.com {
+        #  proxy / unix:/var/discourse/shared/standalone/nginx.http.sock {
+        #    header_upstream X-Forwarded-Proto {scheme}
+        #  }
+        #}
 
 
         http://35.212.195.155,
