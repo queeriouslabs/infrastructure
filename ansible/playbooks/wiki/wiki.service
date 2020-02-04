@@ -1,0 +1,15 @@
+[Unit]
+Description=Wiki.js Service
+After=network.target
+
+[Service]
+Type=forking
+User=wiki
+Group=wiki
+WorkingDirectory=/opt/wiki
+ExecStart=/usr/bin/node wiki start
+ExecStop=/usr/bin/node wiki stop
+Restart=no
+
+[Install]
+WantedBy=multi-user.target
