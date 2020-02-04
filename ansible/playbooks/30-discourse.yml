@@ -11,7 +11,7 @@
         repo: https://github.com/discourse/discourse_docker.git
         dest: /var/discourse
     - name: Copy discourse configuration
-      copy:
+      template:
         src: discourse/app.yml
         dest: /var/discourse/containers/app.yml
       notify: rebuild discourse
