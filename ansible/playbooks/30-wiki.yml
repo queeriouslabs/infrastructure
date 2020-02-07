@@ -41,6 +41,16 @@
         owner: wiki
         group: wiki
         mode: 0700
+    - name: Install wiki.js service file
+      copy:
+        src: wiki/wiki.service
+        dest: /etc/systemd/system/wiki.service
+        mode: 0644
+    - name: Setup systemd wiki service
+      systemd:
+        name: wiki.service
+        state: started
+        enabled: yes
     # - name: Copy install script
     #   copy:
     #     src: wiki/install.sh
