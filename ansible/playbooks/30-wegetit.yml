@@ -1,5 +1,5 @@
 ---
-  # Setup the static website
+  # Setup the website
 - hosts: tachikoma
   become: yes
   tasks:
