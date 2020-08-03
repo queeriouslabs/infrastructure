@@ -17,6 +17,10 @@
         group: wegetit
         state: directory
         mode: 0700
+    - name: Install requirements
+      pip:
+        venv: /opt/wegetit/venv
+        requirements: /opt/wegetit/src/requirements.txt
     - name: Install wegetit service file
       copy:
         src: wegetit/wegetit.service
@@ -31,7 +35,3 @@
       git:
         repo: 'https://github.com/queeriouslabs/wegetit'
         dest: /opt/wegetit
-    - name: Install requirements
-      pip:
-        venv: /opt/wegetit/venv
-        requirements: /opt/wegetit/src/requirements.txt
