@@ -17,6 +17,10 @@
         group: wegetit
         state: directory
         mode: 0700
+    - name: Clone wegetit repo
+      git:
+        repo: 'https://github.com/queeriouslabs/wegetit'
+        dest: /opt/wegetit
     - name: Install requirements
       pip:
         venv: /opt/wegetit/venv
@@ -31,7 +35,3 @@
         name: wegetit.service
         state: started
         enabled: yes
-    - name: Clone wegetit repo
-      git:
-        repo: 'https://github.com/queeriouslabs/wegetit'
-        dest: /opt/wegetit
