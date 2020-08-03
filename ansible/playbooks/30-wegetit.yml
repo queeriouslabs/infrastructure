@@ -1,0 +1,37 @@
+---
+  # Setup the static website
+- hosts: tachikoma
+  become: yes
+  tasks:
+    - name: Add wegetit user
+      user:
+        name: wegetit
+    - name: Create wegetit application directory
+      file:
+        path: /opt/wegetit
+        state: directory
+    - name: Create wiki storage directory
+      file:
+        path: /var/wegetit
+        owner: wegetit
+        group: wegetit
+        state: directory
+        mode: 0700
+    - name: Install wegetit service file
+      copy:
+        src: wegetit/wegetit.service
+        dest: /etc/systemd/system/wegetit.service
+        mode: 0644
+    - name: Setup systemd wegetit service
+      systemd:
+        name: wegetit.service
+        state: started
+        enabled: yes
+    - name: Clone wegetit repo
+      git:
+        repo: 'https://github.com/queeriouslabs/wegetit'
+        dest: /opt/wegetit
+    - name: Install requirements
+      pip:
+        venv: /opt/wegetit/venv
+        requirements: /opt/wegetit/src/requirements.txt
