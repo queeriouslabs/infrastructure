@@ -10,7 +10,7 @@
       file:
         path: /opt/wegetit
         state: directory
-    - name: Create wiki storage directory
+    - name: Create storage directory
       file:
         path: /var/wegetit
         owner: wegetit
@@ -23,6 +23,7 @@
         dest: /opt/wegetit
     - name: Install requirements
       pip:
+        virtualenv_python: python3
         venv: /opt/wegetit/venv
         requirements: /opt/wegetit/src/requirements.txt
     - name: Install wegetit service file

@@ -8,9 +8,9 @@ Type=simple
 User=wegetit
 Group=wegtit
 
-WorkingDirectory=/opt/wegetit
+WorkingDirectory=/opt/wegetit/src
 
-ExecStart=/usr/bin/python3 /opt/wegetit/src/wegetit.py /var/wegetit/db.json
+ExecStart=/opt/wegetit/venv/bin/gunicorn 'wegetit:main("/var/wegetit/db.json")'
 Restart=none
 
 [Install]
