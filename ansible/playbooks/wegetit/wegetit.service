@@ -1,0 +1,17 @@
+[Unit]
+Description=WeGetIt Service
+After=network.target
+
+[Service]
+Type=simple
+
+User=wegetit
+Group=wegtit
+
+WorkingDirectory=/opt/wegetit/src
+
+ExecStart=/opt/wegetit/venv/bin/gunicorn 'wegetit:main("/var/wegetit/db.json")'
+Restart=none
+
+[Install]
+WantedBy=multi-user.target
