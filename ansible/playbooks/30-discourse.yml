@@ -1,0 +1,22 @@
+---
+- hosts: tachikoma
+  become: yes
+  tasks:
+    - name: Install Docker
+      apt:
+        name: docker.io
+        state: present
+    - name: Clone discourse git repo
+      git:
+        repo: https://github.com/discourse/discourse_docker.git
+        dest: /var/discourse
+    - name: Copy discourse configuration
+      template:
+        src: discourse/app.yml
+        dest: /var/discourse/containers/app.yml
+      notify: rebuild discourse
+  handlers:
+    - name: rebuild discourse
+      shell: /var/discourse/launcher rebuild app
+      args:
+        chdir: /var/discourse
