@@ -9,26 +9,39 @@
       # tls needs to be re-enabled once DNS has been updated
       caddy_config: |
         queeriouslabs.com {
-          root /var/www/queeriouslabs.com/deployed
-          tls sysadmins@queeriouslabs.com
-
-          proxy /webhooks localhost:3000
+        	root * /var/www/queeriouslabs.com/deployed
+        	tls sysadmins@queeriouslabs.com
+        
+        	reverse_proxy /webhooks localhost:3000
+        	reverse_proxy /webhooks/* localhost:3000
+        	reverse_proxy /are_we_open.txt unix//opt/presence/run/unix.sock
+        
+        	#  errors {
+        	#    404 404.html
+        	#  }
+        	handle_errors {
+        		@404 expression `{http.error.status_code} == 404`
+        		rewrite @404 /404.html
+        		file_server @404
+        	}
+        	file_server
         }
+        
         wiki.queeriouslabs.com {
-          proxy / localhost:3010
+        	reverse_proxy * localhost:3010
         }
-        #discourse.queeriouslabs.com {
-        #  proxy / unix:/var/discourse/shared/standalone/nginx.http.sock {
-        #    header_upstream X-Forwarded-Proto {scheme}
-        #  }
-        #}
-
-
+        
+        discourse.queeriouslabs.com {
+        	reverse_proxy * unix//var/discourse/shared/standalone/nginx.http.sock {
+        		header_up X-Forwarded-Proto {scheme}
+        	}
+        }
+        
         http://35.212.195.155,
         queeriouslabs.net,
         www.queeriouslabs.net,
         queeriouslabs.org,
         www.queeriouslabs.org,
         www.queeriouslabs.com {
-          redir https://queeriouslabs.com{uri}
+        	redir https://queeriouslabs.com{uri}
         }

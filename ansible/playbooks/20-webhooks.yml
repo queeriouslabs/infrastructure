@@ -24,32 +24,43 @@
       copy:
         src: webhooks/secrets.json
         dest: /opt/webhooks/secrets.json
-    - name: Add yarn apt key
+    - name: Remove yarn apt key
       become_user: root
       apt_key:
         url: https://dl.yarnpkg.com/debian/pubkey.gpg
-        state: present
-    - name: Add yarn apt repo
+        state: absent
+    - name: Remove yarn apt repo
       become_user: root
       apt_repository:
         repo: deb https://dl.yarnpkg.com/debian/ stable main
-        state: present
+        state: absent
         filename: yarn
     - name: Install node
       become_user: root
       apt:
         name: nodejs
         state: present
+    - name: Install npm
+      become_user: root
+      apt:
+        name: npm
+        state: present
     # Requires ansible 2.8+ (switch over later)
     #- name: Install node
     #  snap:
     #    name: node
     #    classic: yes
-    - name: Install yarn
+    - name: Remove yarn
       become_user: root
       apt:
         name: yarn
-        state: present
+        state: absent
+    - name: Install
+      become_user: root
+      shell:
+        npm i -g yarn
+      args:
+        chdir: /opt/webhooks
     - name: Build
       shell:
         yarn install && yarn run build
