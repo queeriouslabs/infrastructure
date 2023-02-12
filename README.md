@@ -11,12 +11,16 @@ E.g: To test your connection to infrastructure by pinging all hosts, run:
 
 ```bash
 cd ansible
-ansible -i hosts all -m ping
+ansible all -m ping
 ```
+
+Secrets are stored in the repository using `ansible-vault` and the vault password may be stored
+in `ansible/.passwd`, as configured in `ansigle.cfg`.  Note that whitespace after the password doesn't 
+matter.
 
 Or to run all playbooks (i.e. configure all infrastructure):
 
 ```bash
 cd ansible
-ansible-playbook -i hosts playbooks/all.yml
+ansible-playbook playbooks/all.yml
 ```
