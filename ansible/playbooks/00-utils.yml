@@ -12,3 +12,4 @@
           - psmisc
           - nano
           - strace
+          - vim-nox
