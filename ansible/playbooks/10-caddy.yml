@@ -31,11 +31,11 @@
         	reverse_proxy * localhost:3010
         }
         
-        discourse.queeriouslabs.com {
-        	reverse_proxy * unix//var/discourse/shared/standalone/nginx.http.sock {
-        		header_up X-Forwarded-Proto {scheme}
-        	}
-        }
+        # discourse.queeriouslabs.com {
+        # 	reverse_proxy * unix//var/discourse/shared/standalone/nginx.http.sock {
+        # 		header_up X-Forwarded-Proto {scheme}
+        # 	}
+        # }
         
         http://35.212.195.155,
         queeriouslabs.net,

@@ -1,0 +1,11 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby
+
+VAGRANTFILE_API_VERSION = "2"
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+    config.vm.box = "generic/ubuntu1804"
+    config.vm.network "private_network", ip: "192.168.56.104"  # ansible_host
+    config.vm.define "tachikoma"
+
+end
